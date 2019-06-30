@@ -7,6 +7,6 @@ if __name__ == "__main__":
     current_volume = sonos.volume
     sonos.mute ^= 1
     if sonos.mute:
-        common.send_notification("Muted volume", common.get_icon(0))
+        common.send_notification("Muted volume", common.get_icon(0), common.process_volume)
     else:
-        common.send_notification("Unmuted volume", common.get_icon(sonos.volume))
+        common.send_notification("Unmuted volume", common.get_icon(sonos.volume), common.process_volume)

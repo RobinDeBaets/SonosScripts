@@ -1,6 +1,8 @@
 certifi==2019.6.16
 chardet==3.0.4
+dbus-python==1.2.8
 idna==2.8
+notify2==0.3.1
 requests==2.22.0
 soco==0.17
 urllib3==1.25.3

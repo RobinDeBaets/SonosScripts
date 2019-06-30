@@ -1,23 +1,28 @@
 import argparse
-import subprocess
 
 import soco
 from soco import SoCo
 from soco.discovery import by_name
 
-timeout = 750
-title = "Sonos controller"
+import notify_send
 
-low_volume_icon = "notification-audio-volume-low.svg"
-medium_volume_icon = "notification-audio-volume-medium.svg"
-high_volume_icon = "notification-audio-volume-high.svg"
-muted_volume_icon = "notification-audio-volume-muted.svg"
+notification_timeout = 1000
+notification_title = "Sonos controller"
+
+low_volume_icon = "notification-audio-volume-low"
+medium_volume_icon = "notification-audio-volume-medium"
+high_volume_icon = "notification-audio-volume-high"
+muted_volume_icon = "notification-audio-volume-muted"
 
 min_volume = 0
 max_volume = 100
 
 min_bass = -10
 max_bass = 10
+
+process_volume = "SONOS_VOLUME"
+process_bass = "SONOS_BASS"
+
 
 def get_icon(volume):
     if volume == 0:
@@ -29,8 +34,8 @@ def get_icon(volume):
     return high_volume_icon
 
 
-def send_notification(message, icon):
-    subprocess.call(["notify-send", title, message, "-t", str(timeout), "-i", icon])
+def send_notification(message, icon, process):
+    notify_send.send_notification(notification_title, message, replaces_process=process, icon=icon, timeout=notification_timeout)
 
 
 def get_argument_parser():
@@ -51,6 +56,6 @@ def get_sonos(parsed_args):
     if not sonos:
         sonos = soco.discovery.any_soco()
     if not sonos:
-        send_notification("Could not find Sonos device")
+        send_notification("Could not find Sonos device", muted_volume_icon, process_volume)
         exit(1)
     return sonos
