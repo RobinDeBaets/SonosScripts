@@ -9,7 +9,7 @@ def send_notification(sonos):
     if not is_spotify_running():
         track = sonos.get_current_track_info()
         common.send_notification(f"{track['artist']} - {track['album']}", common.get_icon(sonos.volume),
-                                 common.process_volume,
+                                 common.process_track,
                                  title=track['title'])
 
 
