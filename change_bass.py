@@ -12,7 +12,8 @@ if __name__ == "__main__":
     new_bass = max(common.min_bass, new_bass)
     sonos.bass = new_bass
     if new_bass != current_bass:
-        common.send_notification(f"Changed bass from {current_bass} to {new_bass}", common.get_icon(50), common.process_bass)
+        common.send_notification(f"Changed bass from {current_bass} to {new_bass}", common.get_icon(50),
+                                 common.process_bass)
     else:
         if current_bass == common.max_bass:
             common.send_notification("Bass is already at maximum", common.get_icon(50), common.process_bass)

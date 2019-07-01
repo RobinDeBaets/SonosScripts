@@ -6,7 +6,7 @@ from soco.discovery import by_name
 
 import notify_send
 
-notification_timeout = 1000
+notification_timeout = 10000
 notification_title = "Sonos controller"
 
 low_volume_icon = "notification-audio-volume-low"
@@ -20,8 +20,9 @@ max_volume = 100
 min_bass = -10
 max_bass = 10
 
-process_volume = "SONOS_VOLUME"
-process_bass = "SONOS_BASS"
+process_volume = 6455
+process_bass = 7626
+process_track = 7149
 
 
 def get_icon(volume):
@@ -34,8 +35,9 @@ def get_icon(volume):
     return high_volume_icon
 
 
-def send_notification(message, icon, process):
-    notify_send.send_notification(notification_title, message, replaces_process=process, icon=icon, timeout=notification_timeout)
+def send_notification(message, icon, notification_id, title=notification_title):
+    notify_send.send_notification(title, message, notification_id=notification_id, icon=icon,
+                                  timeout=notification_timeout)
 
 
 def get_argument_parser():
