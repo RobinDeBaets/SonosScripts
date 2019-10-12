@@ -1,4 +1,5 @@
 import argparse
+import os
 
 import soco
 from soco import SoCo
@@ -23,6 +24,8 @@ max_bass = 10
 process_volume = 6455
 process_bass = 7626
 process_track = 7149
+
+tmp_ip_file = "/tmp/sonos_ip"
 
 
 def get_icon(volume):
@@ -56,8 +59,29 @@ def get_sonos(parsed_args):
     if sonos_arg:
         sonos = by_name(sonos_arg)
     if not sonos:
-        sonos = soco.discovery.any_soco()
+        # Try reading IP from temp file
+        tmp_sonos_ip = get_tmp_sonos_ip()
+        if tmp_sonos_ip:
+            sonos = SoCo(tmp_sonos_ip)
+        if not sonos:
+            # File didn't exist or IP in file was incorrect
+            sonos = soco.discovery.any_soco()
+            if sonos:
+                set_tmp_sonos_ip(sonos.ip_address)
     if not sonos:
         send_notification("Could not find Sonos device", muted_volume_icon, process_volume)
         exit(1)
     return sonos
+
+
+def get_tmp_sonos_ip():
+    if os.path.exists(tmp_ip_file):
+        with open(tmp_ip_file) as file:
+            return file.read()
+
+
+def set_tmp_sonos_ip(tmp_ip):
+    with open(tmp_ip_file, "w+") as f:
+        f.seek(0)
+        f.write(tmp_ip)
+        f.truncate()
