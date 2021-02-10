@@ -1,6 +1,6 @@
 # SonosScripts
 
-A lightweight CLI wrapper for [SoCo](https://github.com/SoCo/SoCo);
+A lightweight CLI wrapper for [SoCo](https://github.com/SoCo/SoCo).
 
 **LICENSE**: [WTFPL](https://en.wikipedia.org/wiki/WTFPL)
 
