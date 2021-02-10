@@ -1,4 +1,0 @@
-dbus-python
-notify2
-psutil
-soco
