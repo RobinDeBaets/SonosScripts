@@ -1,3 +1,2 @@
 #!/bin/bash
-cd ~/freetime/SonosScripts
-venv/bin/python change_bass.py --step -1
+~/.local/bin/sonosscripts change_bass --step -1

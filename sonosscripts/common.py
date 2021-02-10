@@ -5,7 +5,7 @@ import soco
 from soco import SoCo
 from soco.discovery import by_name
 
-import notify_send
+from sonosscripts import notify_send
 
 notification_timeout = 10000
 notification_title = "Sonos controller"
@@ -21,6 +21,7 @@ max_volume = 100
 min_bass = -10
 max_bass = 10
 
+# Some random identifiers to be used for these processes
 process_volume = 6455
 process_bass = 7626
 process_track = 7149
@@ -44,7 +45,9 @@ def send_notification(message, icon, notification_id, title=notification_title):
 
 
 def get_argument_parser():
+    from sonosscripts.modules import modules
     parser = argparse.ArgumentParser()
+    parser.add_argument("command", help="Sonos command", choices=modules.keys())
     parser.add_argument("--sonos", help="Sonos device name")
     parser.add_argument("--sonos_ip", help="Sonos IP")
     return parser
@@ -85,3 +88,7 @@ def set_tmp_sonos_ip(tmp_ip):
         f.seek(0)
         f.write(tmp_ip)
         f.truncate()
+
+
+def round_nearest(x, base):
+    return base * round(x / base)

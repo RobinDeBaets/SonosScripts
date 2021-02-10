@@ -1,10 +1,8 @@
-import common
+from sonosscripts import common
 
-if __name__ == "__main__":
-    parser = common.get_argument_parser()
-    parsed_args = parser.parse_args()
+
+def run(parsed_args):
     sonos = common.get_sonos(parsed_args)
-    current_volume = sonos.volume
     sonos.mute ^= 1
     if sonos.mute:
         common.send_notification("Muted volume", common.get_icon(0), common.process_volume)

@@ -1,6 +1,7 @@
-import common
+from sonosscripts import common
 
-if __name__ == "__main__":
+
+def run(_):
     parser = common.get_argument_parser()
     parser.add_argument("--step", help="volume step", type=int, default=1)
     parsed_args = parser.parse_args()

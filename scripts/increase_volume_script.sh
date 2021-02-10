@@ -1,3 +1,2 @@
 #!/bin/bash
-cd ~/freetime/SonosScripts
-venv/bin/python change_volume.py --step 5
+~/.local/bin/sonosscripts change_volume --step 5

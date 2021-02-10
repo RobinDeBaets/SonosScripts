@@ -1,3 +1,2 @@
 #!/bin/bash
-cd ~/freetime/SonosScripts
-venv/bin/python mute_volume.py
+~/.local/bin/sonosscripts mute_volume

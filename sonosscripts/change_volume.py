@@ -1,6 +1,8 @@
-import common
+from sonosscripts import common
+from sonosscripts.common import round_nearest
 
-if __name__ == "__main__":
+
+def run(_):
     parser = common.get_argument_parser()
     parser.add_argument("--step", help="volume step", type=int, default=5)
     parsed_args = parser.parse_args()
@@ -8,6 +10,7 @@ if __name__ == "__main__":
     step = parsed_args.step
     current_volume = sonos.volume
     new_volume = current_volume + step
+    new_volume = round_nearest(new_volume, step)
     new_volume = min(common.max_volume, new_volume)
     new_volume = max(common.min_volume, new_volume)
     sonos.volume = new_volume

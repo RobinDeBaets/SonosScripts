@@ -1,6 +1,6 @@
 import psutil as psutil
 
-import common
+from sonosscripts import common
 
 spotify_name = "spotify"
 

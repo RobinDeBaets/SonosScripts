@@ -1,0 +1,3 @@
+[console_scripts]
+sonosscripts = sonosscripts.main:run
+

@@ -1,4 +1,5 @@
 import notify2
+from dbus import DBusException
 
 
 def clean_up_text(text):
@@ -13,7 +14,7 @@ urgencies = {
 
 
 # Based on https://github.com/phuhl/notify-send.py
-def send_notification(summary, message='', icon='', urgency="normal", timeout=None, app_name="", notification_id=None):
+def send_notification(summary, message="", icon="", urgency="normal", timeout=None, app_name="", notification_id=None):
     summary = clean_up_text(summary)
     message = clean_up_text(message)
     notify2.init(app_name)
@@ -36,4 +37,8 @@ def send_notification(summary, message='', icon='', urgency="normal", timeout=No
         except ValueError:
             print("replaces-id has to be an integer")
             exit()
-    notification.show()
+    try:
+        notification.show()
+    except DBusException as e:
+        # Ignore DBus exceptions, mostly irrelevant
+        print(e.get_dbus_message())
