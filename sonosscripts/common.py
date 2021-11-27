@@ -1,14 +1,16 @@
 import argparse
 import os
+import traceback
 
 import soco
 from soco import SoCo
 from soco.discovery import by_name
 
-from sonosscripts import notify_send
+from sonosscripts import terminal_notifier
+from sonosscripts.terminal_notifier import TERMINAL_NOTIFIER_PATH
 
 notification_timeout = 10000
-notification_title = "Sonos controller"
+notification_title = "Sonos controller 📢"
 
 low_volume_icon = "notification-audio-volume-low"
 medium_volume_icon = "notification-audio-volume-medium"
@@ -29,6 +31,19 @@ process_track = 7149
 tmp_ip_file = "/tmp/sonos_ip"
 
 
+notification_sender = None
+
+if os.path.isfile(TERMINAL_NOTIFIER_PATH):
+    notification_sender = terminal_notifier
+else:
+    try:
+        from sonosscripts import notify_send
+        notification_sender = notify_send
+    except:
+        traceback.print_exc()
+        print("Could not connect to any notification sender")
+
+
 def get_icon(volume):
     if volume == 0:
         return muted_volume_icon
@@ -40,7 +55,8 @@ def get_icon(volume):
 
 
 def send_notification(message, icon, notification_id, title=notification_title):
-    notify_send.send_notification(title, message, notification_id=notification_id, icon=icon,
+    if notification_sender:
+        notification_sender.send_notification(title, message, notification_id=notification_id, icon=icon,
                                   timeout=notification_timeout)
 
 

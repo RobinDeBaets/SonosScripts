@@ -12,7 +12,6 @@ setup(
     }, install_requires=[
         "soco",
         "notify2",
-        "dbus-python",
         "psutil"
     ]
 )

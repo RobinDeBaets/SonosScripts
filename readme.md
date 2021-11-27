@@ -12,6 +12,9 @@ cd SonosScripts
 python3 setup.py install --user
 ```
 
+By default, it will try to use `terminal-notifier` to send notifications when changing settings.
+Optionally, you can install `dbus-python` through pip for compatibility with `notify-send`.
+
 ## Usage
 
 All commands can take the following options as well:

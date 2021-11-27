@@ -23,19 +23,19 @@ def send_notification(summary, message="", icon="", urgency="normal", timeout=No
     if urgency in urgencies:
         notification.set_urgency(urgencies[urgency])
     else:
-        print("urgency must be low|normal|critical")
+        print("Urgency must be low|normal|critical")
         exit()
     if timeout:
         try:
             notification.set_timeout(int(timeout))
         except ValueError:
-            print("expire-time must be integer")
+            print("Expire time must be integer")
             exit()
     if notification_id:
         try:
             notification.id = int(notification_id)
         except ValueError:
-            print("replaces-id has to be an integer")
+            print("Replace id has to be an integer")
             exit()
     try:
         notification.show()
